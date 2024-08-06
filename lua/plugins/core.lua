@@ -5,6 +5,10 @@
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
 return {
+  { "lukas-reineke/indent-blankline.nvim", enabled = false },
+  { "folke/flash.nvim", enabled = false },
+  { "garymjr/nvim-snippets", enabled = false },
+  { "MeanderingProgrammer/markdown.nvim", enabled = false },
   {
     "bluz71/vim-moonfly-colors",
     name = "moonfly",
@@ -43,6 +47,64 @@ return {
     end,
   },
   {
+    "nvim-lualine/lualine.nvim",
+    opts = function(_, opts)
+      opts.sections.lualine_y = {}
+      opts.sections.lualine_z = {
+        { "location", padding = { left = 0, right = 1 } },
+      }
+      local colors = {
+        color0 = "#2f163a",
+
+        color1 = "#b06ae3",
+        color2 = "#36c692",
+        color3 = "#80a0ff",
+        color4 = "#e3c78a",
+        color5 = "#ff5189",
+
+        color6 = "#1c1c1c",
+
+        color7 = "#9e9e9e",
+
+        color8 = "#c6c6c6",
+      }
+
+      opts.options.component_separators = ""
+      opts.options.section_separators = ""
+
+      opts.options.theme = {
+        normal = {
+          a = { fg = colors.color6, bg = colors.color1, gui = "bold" },
+          b = { fg = colors.color1, bg = colors.color0 },
+          c = { fg = colors.color8, bg = colors.color0 },
+        },
+        insert = {
+          a = { fg = colors.color6, bg = colors.color2, gui = "bold" },
+          b = { fg = colors.color2, bg = colors.color0 },
+        },
+        visual = {
+          a = { fg = colors.color6, bg = colors.color3, gui = "bold" },
+          b = { fg = colors.color3, bg = colors.color0 },
+        },
+        command = {
+          a = { fg = colors.color6, bg = colors.color4, gui = "bold" },
+          b = { fg = colors.color4, bg = colors.color0 },
+        },
+        replace = {
+          a = { fg = colors.color6, bg = colors.color5, gui = "bold" },
+          b = { fg = colors.color5, bg = colors.color0 },
+        },
+        inactive = {
+          a = { fg = colors.color7, bg = colors.color0 },
+          b = { fg = colors.color7, bg = colors.color0 },
+          c = { fg = colors.color7, bg = colors.color0 },
+        },
+      }
+
+      return opts
+    end,
+  },
+  {
     "LazyVim/LazyVim",
     opts = {
       colorscheme = "moonfly",
@@ -60,10 +122,6 @@ return {
       })
     end,
   },
-
-  { "lukas-reineke/indent-blankline.nvim", enabled = false },
-  { "folke/flash.nvim", enabled = false },
-  { "garymjr/nvim-snippets", enabled = false },
   {
     "folke/noice.nvim",
     opts = {
@@ -75,6 +133,88 @@ return {
         command_palette = true,
         long_message_to_split = true,
       },
+    },
+  },
+  {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    opts = {},
+  },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      diagnostics = {
+        virtual_text = false,
+        virtual_lines = { highlight_whole_line = false },
+      },
+    },
+  },
+  {
+    "rhysd/conflict-marker.vim",
+    init = function()
+      vim.g.conflict_marker_highlight_group = ""
+      vim.g.conflict_marker_begin = "^<<<<<<< .*$"
+      vim.g.conflict_marker_end = "^>>>>>>> .*$"
+      vim.g.conflict_marker_common_ancestors = "^||||||| .*$"
+    end,
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      extensions = {
+        advanced_git_search = {
+          diff_plugin = "diffview",
+        },
+      },
+    },
+  },
+  {
+    "aaronhallaert/advanced-git-search.nvim",
+    cmd = { "AdvancedGitSearch" },
+    keys = {
+      {
+        "<leader>gc",
+        "<cmd>AdvancedGitSearch search_log_content<cr>",
+        desc = "Git - search commit by code",
+      },
+      {
+        "<leader>gt",
+        "<cmd>AdvancedGitSearch search_log_content_file<cr>",
+        desc = "Git - search commits by code (current file)",
+      },
+      {
+        "<leader>gd",
+        "<cmd>AdvancedGitSearch diff_commit_file<cr>",
+        desc = "Git - diff current file with commit",
+      },
+      {
+        "<leader>gB",
+        "<cmd>AdvancedGitSearch diff_branch_file<cr>",
+        desc = "Git - diff current file with commit",
+      },
+      {
+        "<leader>gf",
+        "<cmd>AdvancedGitSearch changed_on_branch<cr>",
+        desc = "Git - forkpoint differences",
+      },
+      {
+        "<leader>gf",
+        "<cmd>AdvancedGitSearch checkout_reflog<cr>",
+        desc = "Git - reflog checkout",
+      },
+    },
+    config = function()
+      require("telescope").load_extension("advanced_git_search")
+      vim.keymap.set("n", "<c-g>", function()
+        if next(require("diffview.lib").views) == nil then
+          vim.cmd("DiffviewOpen")
+        else
+          vim.cmd("DiffviewClose")
+        end
+      end)
+    end,
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "sindrets/diffview.nvim",
     },
   },
 }
