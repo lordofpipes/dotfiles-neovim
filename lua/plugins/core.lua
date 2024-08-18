@@ -1,9 +1,3 @@
--- every spec file under the "plugins" directory will be loaded automatically by lazy.nvim
---
--- In your plugin files, you can:
--- * add extra plugins
--- * disable/enabled LazyVim plugins
--- * override the configuration of LazyVim plugins
 return {
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
   { "folke/flash.nvim", enabled = false },
@@ -51,7 +45,7 @@ return {
     opts = function(_, opts)
       opts.sections.lualine_y = {}
       opts.sections.lualine_z = {
-        { "location", padding = { left = 0, right = 1 } },
+        { "location", padding = { left = 1, right = 1 } },
       }
       local colors = {
         color0 = "#2f163a",
