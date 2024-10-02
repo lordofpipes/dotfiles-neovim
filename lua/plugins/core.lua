@@ -3,6 +3,7 @@ return {
   { "folke/flash.nvim", enabled = false },
   { "garymjr/nvim-snippets", enabled = false },
   { "MeanderingProgrammer/markdown.nvim", enabled = false },
+  { "iamcco/markdown-preview.nvim", enabled = false },
   {
     "bluz71/vim-moonfly-colors",
     name = "moonfly",
@@ -161,6 +162,7 @@ return {
       },
     },
   },
+  { "tpope/vim-fugitive" },
   {
     "aaronhallaert/advanced-git-search.nvim",
     cmd = { "AdvancedGitSearch" },
