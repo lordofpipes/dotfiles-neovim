@@ -12,3 +12,5 @@ opt.expandtab = true
 opt.conceallevel = 0
 opt.wrap = true
 opt.breakindent = true
+opt.pumblend = 0
+opt.winblend = 0
