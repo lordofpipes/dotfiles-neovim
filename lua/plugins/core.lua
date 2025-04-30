@@ -231,4 +231,11 @@ return {
       vim.g.suda_smart_edit = 1
     end,
   },
+  {
+    "snacks.nvim",
+    opts = {
+      indent = { enabled = false },
+      scroll = { enabled = false },
+    },
+  },
 }
