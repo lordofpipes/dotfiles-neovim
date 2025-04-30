@@ -20,19 +20,12 @@ local lsplines_toggle = {
   end,
 }
 
-LazyVim.toggle.map("<c-k>", lsplines_toggle)
--- Snacks.toggle.map("<c-k>", lsplines_toggle)
-LazyVim.toggle.map("<leader>ud", lsplines_toggle)
--- Snacks.toggle.map("<leader>ud", lsplines_toggle)
+Snacks.toggle(lsplines_toggle):map("<c-k>")
+Snacks.toggle(lsplines_toggle):map("<leader>ud")
 
--- get rid of lazygit, keep up to date with upstream
-vim.keymap.del("n", "<leader>gg")
-vim.keymap.del("n", "<leader>gG")
 vim.keymap.del("n", "<leader>gb")
 vim.keymap.del("n", "<leader>gB")
 vim.keymap.del("n", "<leader>gf")
-vim.keymap.del("n", "<leader>gl")
-vim.keymap.del("n", "<leader>gL")
 
 vim.api.nvim_set_keymap("n", "<RightMouse>", "<cmd>lua RightClickCodeAction()<CR>", { noremap = true, silent = true })
 
